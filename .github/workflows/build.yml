@@ -1,0 +1,26 @@
+name: Build Arabic Booklet PDF
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Compile XeLaTeX Document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          compiler: xelatex
+          args: -file-line-error -interaction=nonstopmode
+
+      - name: Upload Generated PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jozve-Arabi-12
+          path: main.pdf
