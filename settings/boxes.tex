@@ -1,0 +1,135 @@
+% ============================================================================
+%  boxes.tex — جعبه‌های محتوایی (بر پایهٔ tcolorbox)
+%  همهٔ جعبه‌ها breakable هستند تا در مرزِ صفحه به‌درستی شکسته شوند.
+%  نکتهٔ راست‌به‌چپ: نوارِ رنگیِ کنارِ جعبه‌ها روی لبهٔ «شرقی» (راست) است،
+%  یعنی همان سمتی که خطِ فارسی/عربی از آن آغاز می‌شود.
+% ============================================================================
+
+% ------------------------------------------------------------ سبکِ پایه ------
+\tcbset{
+  JBase/.style={
+    enhanced, breakable,
+    boxrule=0pt, boxsep=0pt,
+    arc=3pt, outer arc=3pt,
+    left=11pt, right=11pt, top=9pt, bottom=9pt,
+    before skip=11pt, after skip=11pt,
+    fontupper=\normalsize,
+    pad at break*=6pt,
+  },
+  % جعبهٔ بی‌عنوان:  #1 رنگِ نوار،  #2 رنگِ پس‌زمینه
+  JPlainBox/.style n args={2}{
+    JBase,
+    colback=#2, colframe=#1,
+    borderline east={2.2pt}{0pt}{#1},
+  },
+  % جعبهٔ عنوان‌دار:  #1 رنگِ اصلی،  #2 پس‌زمینهٔ بدنه،  #3 متنِ عنوان
+  JTitledBox/.style n args={3}{
+    JBase,
+    colback=#2, colframe=#1,
+    coltitle=white, colbacktitle=#1,
+    fonttitle=\JUIFont\bfseries,
+    titlerule=0pt,
+    toptitle=4pt, bottomtitle=4pt,
+    lefttitle=11pt, righttitle=11pt,
+    halign title=right,
+    title={\RL{#3}},
+  },
+  % جعبهٔ عنوان‌دارِ کم‌رنگ: عنوان روی زمینهٔ روشن با متنِ تیره
+  JSoftBox/.style n args={3}{
+    JBase,
+    colback=white, colframe=#1,
+    coltitle=#1, colbacktitle=#2,
+    fonttitle=\JUIFont\bfseries,
+    titlerule=0pt,
+    toptitle=4pt, bottomtitle=4pt,
+    lefttitle=11pt, righttitle=11pt,
+    halign title=right,
+    title={\RL{#3}},
+    borderline east={2.2pt}{0pt}{#1},
+  },
+}
+
+% ------------------------------------------------- متنِ درس و واژه‌نامه ------
+% \begin{JNass}[عنوانِ دلخواه] ... \end{JNass}
+\newtcolorbox{JNass}[1][اَلنَّصُّ \,\textbar\, متنِ درس]{%
+  JSoftBox={JAccentD}{JAccentL}{#1}, colback=JPaper,
+}
+
+% \begin{JMoajam}[عنوان] ... \end{JMoajam}
+\newtcolorbox{JMoajam}[1][اَلْمُعْجَمُ \,\textbar\, واژه‌نامهٔ درس]{%
+  JSoftBox={JTeal}{JTealL}{#1},
+}
+
+% ------------------------------------------------------- قاعده و نکته -------
+% \begin{JQaede}[کلیدهای اضافی]{عنوانِ قاعده} ... \end{JQaede}
+\newtcolorbox{JQaede}[2][]{%
+  JTitledBox={JPrimary}{JPrimaryL}{#2}, #1,
+}
+
+% \begin{JNokte}[عنوان] ... \end{JNokte}
+\newtcolorbox{JNokte}[1][نکته]{%
+  JTitledBox={JAccentD}{JAccentL}{#1},
+}
+
+% \begin{JMesal}[کلیدهای اضافی] ... \end{JMesal}   (مثال؛ بی‌عنوان و جمع‌وجور)
+\newtcolorbox{JMesal}[1][]{%
+  JPlainBox={JSlate}{JSlateL}, top=7pt, bottom=7pt, #1,
+}
+
+% ---------------------------------------------------- آیه، حدیث، خودآزمایی --
+% \begin{JAyat}[کلیدهای اضافی] ... \end{JAyat}      (گروهی از آیه‌ها)
+\newtcolorbox{JAyat}[1][]{%
+  JPlainBox={JGreen}{JGreenL}, #1,
+}
+
+% \begin{JHadith}[کلیدهای اضافی] ... \end{JHadith}  (حدیث و سخنانِ بزرگان)
+\newtcolorbox{JHadith}[1][]{%
+  JPlainBox={JTeal}{JTealL}, #1,
+}
+
+% \begin{JTest}[عنوان] ... \end{JTest}
+\newtcolorbox{JTest}[1][اِخْتَبِرْ نَفْسَكَ \,\textbar\, خود را بیازما]{%
+  JTitledBox={JPlum}{JPlumL}{#1},
+}
+
+% ------------------------------------------------------------- تمرین‌ها ------
+% \begin{JTamrin}[کلیدهای اضافی]{شماره}{عنوان} ... \end{JTamrin}
+\newtcolorbox{JTamrin}[3][]{%
+  JTitledBox={JPrimaryMid}{white}{تمرینِ #2\quad\textbar\quad #3}, #1,
+}
+
+% ------------------------------------------------- هشدار، پاسخ‌نامه، ترجمه ---
+% \begin{JDam}[عنوان] ... \end{JDam}   (خطاهای رایج و دامِ آزمون)
+\newtcolorbox{JDam}[1][دامِ آزمون]{%
+  JSoftBox={JRed}{JRedL}{#1},
+}
+
+% \begin{JKey}[عنوان] ... \end{JKey}   (پاسخ‌نامه؛ با \ifJShowKey مدیریت می‌شود)
+\newtcolorbox{JKey}[1][پاسخ‌نامه]{%
+  JTitledBox={JGreen}{white}{#1},
+}
+
+% \begin{JGood}[عنوان] ... \end{JGood}  (خوب است بدانیم)
+\newtcolorbox{JGood}[1][خوب است بدانیم]{%
+  JSoftBox={JSlate}{JSlateL}{#1},
+}
+
+% \begin{JTarjome}[عنوان] ... \end{JTarjome}  (ترجمهٔ روانِ فارسی)
+\newtcolorbox{JTarjome}[1][اَلتَّرْجَمَةُ \,\textbar\, ترجمهٔ روان]{%
+  JSoftBox={JMuted}{JSlateL}{#1}, colback=white,
+}
+
+% \begin{JLegend}[عنوان] ... \end{JLegend}  (راهنمای نمادها در آغاز جزوه)
+\newtcolorbox{JLegend}[1][راهنمای نمادها و جعبه‌ها]{%
+  JSoftBox={JPrimary}{JPrimaryL}{#1},
+}
+
+% ------------------------------------------------------- کلیدهای کمکی -------
+% برای فشرده‌کردن هر جعبه:  \begin{JQaede}[JCompact]{...}
+\tcbset{
+  JCompact/.style={top=6pt, bottom=6pt, before skip=7pt, after skip=7pt},
+  JWide/.style={left=6pt, right=6pt},
+  JNoBreak/.style={unbreakable},
+}
+
+% ============================================================================

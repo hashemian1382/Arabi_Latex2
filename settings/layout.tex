@@ -1,0 +1,495 @@
+% ============================================================================
+%  layout.tex — صفحه‌آرایی، سرصفحه و پاصفحه، فهرست مطالب، پیوندها،
+%               ساختار بخش‌ها، آغازینِ درس‌ها، پرسش و پاسخ
+% ============================================================================
+
+% ------------------------------------------------------------- ابعاد صفحه ---
+\geometry{
+  a4paper,
+  top=2.5cm, bottom=2.2cm,
+  left=2.0cm, right=2.3cm,     % در متن راست‌به‌چپ، حاشیهٔ راست، حاشیهٔ عطف است
+  headheight=1.2cm, headsep=0.55cm, footskip=1.05cm
+}
+
+% -------------------------------------------------------- پاراگراف و متن ----
+\color{JInk}
+\linespread{1.32}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em plus 0.15em minus 0.05em}
+\setlength{\emergencystretch}{2.2em}
+\clubpenalty=9000
+\widowpenalty=9000
+\brokenpenalty=4000
+
+% ---------------------------------------------------------------- جدول‌ها ----
+\renewcommand{\arraystretch}{1.30}
+\arrayrulecolor{JRule}
+\setlength{\arrayrulewidth}{0.5pt}
+\setlength{\tabcolsep}{6pt}
+
+% ---------------------------------------------------------- فهرست‌های آیتمی --
+\setlist{itemsep=0.22em, topsep=0.40em, parsep=0pt, partopsep=0pt}
+\setlist[itemize,1]{label=\textcolor{JAccent}{\textbullet}}
+\setlist[itemize,2]{label=\textcolor{JAccent!70}{\textendash}}
+\setlist[enumerate,1]{label=\textcolor{JPrimary}{\bfseries\arabic*.}}
+\setlist[enumerate,2]{label=\textcolor{JPrimaryMid}{\arabic*.}}
+
+% ------------------------------------------------------ سرصفحه و پاصفحه -----
+\newcommand{\JRunningLesson}{جزوهٔ جامعِ عربیِ دوازدهم}   % با هر \Lesson به‌روز می‌شود
+
+% سرصفحه: درس در سمتِ راست (آغازِ خطِ راست‌به‌چپ) و نامِ جزوه در سمتِ چپ
+\newcommand{\JHeadLine}{%
+  \hbox to \textwidth{%
+    {\JUIFont\small\textcolor{JPrimary}{\JRTL{\JRunningLesson}}}%
+    \hfil
+    {\JUIFont\small\textcolor{JMuted}{\JRTL{\JBookTitle}}}%
+  }%
+}
+\newcommand{\JFooterMark}{%
+  {\color{JRule}\rule[0.30em]{1.7cm}{0.5pt}}\;%
+  {\JUIFont\small\color{JPrimary}\thepage}\;%
+  {\color{JRule}\rule[0.30em]{1.7cm}{0.5pt}}%
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\JHeadLine}
+\fancyfoot[C]{\JFooterMark}
+\renewcommand{\headrulewidth}{0pt}   % خط سرصفحه دستی رسم می‌شود
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{%
+  \vspace{2pt}{\color{JRule}\hrule height 0.5pt}%
+}
+
+% سبکِ صفحه‌های آغازِ درس و صفحه‌های ویژه: فقط شمارهٔ صفحه
+\fancypagestyle{JPlain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\JFooterMark}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\headrule}{}%
+}
+\fancypagestyle{JEmpty}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\headrule}{}%
+}
+% \thispagestyle{plain} در برخی دستورهای استاندارد به کار می‌رود؛
+% آن را هم‌شکل با JPlain می‌کنیم.
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\JFooterMark}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\headrule}{}%
+}
+
+% ------------------------------------------------------------ فهرست مطالب ----
+% فهرست با \@starttoc و قالبِ سفارشیِ سطرها ساخته می‌شود
+% (titletoc با bidi/xepersian سازگار نیست).
+\makeatletter
+\newcommand*{\l@Jchap}[2]{%
+  \@dottedtocline{1}{0pt}{2.2em}%
+    {\JUIFont\bfseries\color{JPrimary}#1}%
+    {\JUIFont\bfseries\color{JPrimary}#2}}
+\newcommand*{\l@Jsub}[2]{%
+  \@dottedtocline{2}{1.2em}{2.2em}%
+    {\color{JInk}#1}%
+    {\color{JMuted}#2}}
+\newcommand{\JTOC}{%
+  \clearpage
+  \thispagestyle{JPlain}%
+  \begin{center}
+    \vspace*{-0.6em}%
+    {\JUIFont\bfseries\fontsize{16}{22}\selectfont\color{JPrimary}%
+      \JDiamond\;\; \JRTL{فهرستِ مطالب} \;\;\JDiamond\par}%
+    \vspace{5pt}%
+    \noindent\makebox[\linewidth]{\color{JAccent!55}\rule{0.62\linewidth}{0.8pt}}%
+  \end{center}
+  \addvspace{10pt}%
+  \@starttoc{toc}%
+}
+\makeatother
+
+% ------------------------------------------------------------------ پیوندها --
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=JPrimary,
+  urlcolor=JTeal,
+  citecolor=JPrimary,
+  filecolor=JTeal,
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  pdftitle={\JRTL{\JBookTitle}},
+  pdfauthor={\JAuthor},
+  pdfsubject={\JBookSubtitle},
+  pdfkeywords={عربی, زبان قرآن, پایهٔ دوازدهم, انسانی, جزوه, LaTeX},
+  pdfcreator={XeLaTeX + xepersian}
+}
+
+% ============================================================================
+%  ساختار بخش‌ها
+% ============================================================================
+
+% لوزی طلایی تزئینی
+\newcommand{\JDiamond}{%
+  \tikz[baseline=-0.65ex]\node[fill=JAccent, regular polygon,
+    regular polygon sides=4, rotate=45, inner sep=1.4pt]{};%
+}
+
+% عنوانِ سطحِ یک درونِ درس (ثبت در فهرست)
+% \Jsec{عنوان}
+\newcommand{\Jsec}[1]{%
+  \par\addvspace{16pt}%
+  \phantomsection
+  \addcontentsline{toc}{Jsub}{#1}%
+  \noindent{\JDiamond\;\JUIFont\bfseries\large\color{JPrimary}\RL{#1}}%
+  \par\nopagebreak\vspace{3.5pt}%
+  {\noindent\color{JAccent!55}\rule{\linewidth}{0.7pt}}%
+  \par\nopagebreak\addvspace{7pt}%
+}
+
+% عنوانِ سطحِ دو (بدون ثبت در فهرست)
+% \Jsub{عنوان}
+\newcommand{\Jsub}[1]{%
+  \par\addvspace{9pt}%
+  \noindent{\JUIFont\bfseries\color{JPrimaryMid}\small ◂\; \RL{#1}}%
+  \par\nopagebreak\addvspace{3pt}%
+}
+
+% نشانِ کوچک برچسب‌دار (مثل «درس ۱» روی تست‌ها)
+% \JBadge{رنگ}{متن}
+\newcommand{\JBadge}[2]{%
+  \tcbox[on line, boxrule=0pt, arc=2.4pt, colback=#1!12, colframe=#1,
+    left=5pt, right=5pt, top=2.2pt, bottom=2.2pt,
+    boxsep=0pt]{\JUIFont\bfseries\footnotesize\color{#1}#2}%
+}
+
+% خط‌چینِ جایِ خالی
+% \Jdots          ← تا انتهای خط
+% \JdotsW{۳cm}    ← با پهنای معیّن
+\newcommand{\Jdots}{%
+  \textcolor{JRule}{\leaders\hbox to 0.55em{\hss.\hss}\hfill\kern0pt}%
+}
+\newcommand{\JdotsW}[1]{%
+  \textcolor{JRule}{\makebox[#1]{\leaders\hbox to 0.55em{\hss.\hss}\hfill\kern0pt}}%
+}
+
+% ============================================================================
+%  آغازینِ درس
+% ============================================================================
+
+\newcounter{JLesson}
+\newcommand{\JLessonName}{}   % نامِ الفباییِ درس: اوّل، ثانی، ...
+
+% \Lesson{عنوانِ عربی}{عنوانِ فارسی}{حکمتِ عربی}{حکمتِ فارسی}{نقل‌کننده}
+\newcommand{\Lesson}[5]{%
+  \clearpage
+  \refstepcounter{JLesson}%
+  \setcounter{footnote}{0}%
+  \gdef\JRunningLesson{درسِ \theJLesson\ \textbullet\ #2}%
+  \thispagestyle{JPlain}%
+  \vspace*{-0.9em}%
+  \phantomsection
+  \addcontentsline{toc}{Jchap}{درسِ \theJLesson\quad\textbullet\quad #2}%
+  \begin{center}
+    \begin{tikzpicture}[inner sep=0pt]
+      \node (band) at (0,0)
+        {\includegraphics[width=17.4cm,height=13pt]{assets/band-thin.jpg}};
+      \begin{scope}
+        \clip (0,-2.95) circle (1.92);
+        \node at (0,-2.95) {\includegraphics[width=4.1cm]{assets/medallion-trim.jpg}};
+      \end{scope}
+      \node[text=white, font=\JUIFont\bfseries\fontsize{25}{29}\selectfont]
+        at (0,-2.95) {\theJLesson};
+    \end{tikzpicture}
+
+    \vspace{9pt}
+    \begin{tcolorbox}[enhanced, width=0.96\linewidth, colback=JPrimary,
+        colframe=JPrimary, arc=7pt, halign=center, boxrule=0pt,
+        top=11pt, bottom=11pt, drop fuzzy shadow=JPrimary!35]
+      {\ArB\fontsize{19.5}{26}\selectfont\color{JPaper} \JRTL{#1}}\\[5pt]
+      {\JUIFont\bfseries\fontsize{12.5}{17}\selectfont\color{JAccentL} #2}
+    \end{tcolorbox}
+
+    \vspace{13pt}
+    \begin{tcolorbox}[enhanced, breakable, width=0.92\linewidth,
+        colback=JTealL, colframe=JTeal, boxrule=0pt,
+        borderline east={2.2pt}{0pt}{JTeal},
+        arc=5pt, halign=center, top=10pt, bottom=10pt]
+      {\Ar\color{JTeal!85!black}\textbf{\JRTL{#3}}}\\[5pt]
+      {\small\color{JMuted}#4}\\[4pt]
+      {\JUIFont\footnotesize\color{JTeal}— #5 —}
+    \end{tcolorbox}
+  \end{center}
+  \vspace{2pt}
+}
+
+% هدف‌های آموزشیِ درس؛ پس از \Lesson فراخوانی می‌شود
+% \JGoals{حکمِ اول \JGoalSep حکمِ دوم ...}
+\newcommand{\JGoalSep}{\;{\color{JAccent}\textbullet}\;}
+\newcommand{\JGoals}[1]{%
+  \begin{tcolorbox}[enhanced, breakable, width=0.96\linewidth,
+      colback=JPrimaryL, colframe=JPrimary, boxrule=0pt, arc=5pt,
+      top=8pt, bottom=8pt,
+      title={\JUIFont\bfseries\small \JRTL{در این درس چه می‌آموزیم؟}},
+      coltitle=JPrimary, colbacktitle=JPrimaryL,
+      toptitle=5pt, bottomtitle=5pt, titlerule=0pt,
+      borderline east={2.2pt}{0pt}{JPrimary}]
+    {\JUIFont\small\color{JInk}#1}
+  \end{tcolorbox}%
+}
+
+% ============================================================================
+%  پرسش‌های چهارگزینه‌ای و پاسخ‌ها
+% ============================================================================
+
+\newcounter{JQ}
+\newcommand{\JResetQ}{\setcounter{JQ}{0}}
+
+% \JQ{متنِ پرسش}{گزینهٔ ۱}{گزینهٔ ۲}{گزینهٔ ۳}{گزینهٔ ۴}
+\newcommand{\JQ}[5]{%
+  \refstepcounter{JQ}%
+  \begin{tcolorbox}[enhanced, breakable, colback=white, colframe=JSlate,
+      boxrule=0pt, borderline east={2.2pt}{0pt}{JSlate}, arc=3pt,
+      left=9pt, right=9pt, top=6.5pt, bottom=6.5pt,
+      before skip=8pt, after skip=8pt, halign=right]
+    {\JRTL{\JQBadge\;{\JUIFont\bfseries\color{JInk}#1}}}\par
+    \vspace{4pt}
+    {\JChoices{#2}{#3}{#4}{#5}}
+  \end{tcolorbox}%
+}
+\newcommand{\JQBadge}{%
+  \tikz[baseline=-0.72ex]\node[circle, fill=JSlate, text=white,
+    font=\JUIFont\bfseries\footnotesize, inner sep=0pt,
+    minimum size=1.75em] {\theJQ};%
+}
+
+% شمارهٔ تستِ دلخواه (برای آزمون‌های جامع با شمارهٔ پیوسته)
+% \JQnum{۵}{متن}{الف}{ب}{ج}{د}
+\newcommand{\JQnum}[6]{%
+  \setcounter{JQ}{#1}%
+  \JQ{#2}{#3}{#4}{#5}{#6}%
+}
+
+% شبکهٔ گزینه‌ها: دو ستون (۱ و ۲ در ردیفِ نخست، ۳ و ۴ در ردیفِ دوم)
+\newcommand{\JChoices}[4]{%
+  \begin{tabular}{@{}p{0.465\linewidth}@{\hspace{1.05em}}p{0.465\linewidth}@{}}
+    ۱)~#1 & ۲)~#2 \\[3pt]
+    ۳)~#3 & ۴)~#4
+  \end{tabular}\par
+}
+
+% ------------------------------------------------------------- پاسخ‌نامه -----
+\newif\ifJShowKey
+\JShowKeytrue     % برای نسخهٔ بدونِ پاسخ: \JShowKeyfalse
+
+% پاسخِ کوتاه (یک‌خطی) در دلِ پاسخ‌نامه‌ها
+% \JAns{گزینه/پاسخ}{توضیح}
+\newcommand{\JAns}[2]{%
+  \begin{tcolorbox}[enhanced, breakable, colback=JGreenL, colframe=JGreen,
+      boxrule=0pt, borderline east={2pt}{0pt}{JGreen}, arc=2.6pt,
+      left=8pt, right=8pt, top=5pt, bottom=5pt,
+      before skip=6pt, after skip=6pt]
+    {\JUIFont\bfseries\small\color{JGreen}پاسخ:}\;{\color{JGreen!45!black}\bfseries #1}%
+    \ifblank{#2}{}{\quad{\color{JMuted}\small — #2}}%
+  \end{tcolorbox}%
+}
+
+% پاسخِ تشریحی
+% \JAnswer{شماره}{متنِ تشریح}
+\newcommand{\JAnswer}[2]{%
+  \begin{tcolorbox}[enhanced, breakable, colback=white, colframe=JGreen,
+      boxrule=0pt, borderline east={2.2pt}{0pt}{JGreen}, arc=3pt,
+      left=9pt, right=9pt, top=6pt, bottom=6pt,
+      before skip=8pt, after skip=8pt]
+    {\JUIFont\bfseries\color{JGreen}پاسخِ #1}\par\addvspace{3pt}#2
+  \end{tcolorbox}%
+}
+
+% ============================================================================
+%  شعر، جدولِ واژه‌نامه
+% ============================================================================
+
+% محیطِ شعرِ عربی
+\newenvironment{JPoem}{%
+  \par\addvspace{6pt}\begingroup
+  \Ar\color{JPrimary!88!black}\linespread{1.52}\selectfont
+  \setlength{\parindent}{0pt}\setlength{\parskip}{1.2pt}%
+}{\par\endgroup\addvspace{6pt}}
+
+% عنوانِ قطعهٔ شعر
+% \JPoemTitle{اَلدَّاءُ وَ الدَّوَاءُ}
+\newcommand{\JPoemTitle}[1]{%
+  \par\addvspace{7pt}\noindent
+  {\JDiamond\;\JUIFont\bfseries\small\color{JAccentD}\RL{#1}}%
+  \par\nopagebreak\addvspace{3pt}%
+}
+
+% یک بیت: مصراعِ نخست در راست، مصراعِ دوم در چپ
+% \JBayt{مصراعِ اوّل}{مصراعِ دوم}
+\newcommand{\JBayt}[2]{%
+  \noindent\begin{tabular}{@{}p{0.455\linewidth}@{\hskip 1.15em}p{0.455\linewidth}@{}}
+    #1 & #2
+  \end{tabular}\par
+}
+
+% ارجاعِ پانویسِ شعر (شبیهِ حاشیهٔ کتاب):  \JPoemNote{شماره}{متن}
+\newcommand{\JPoemNote}[2]{%
+  \noindent{\JUIFont\footnotesize\color{JMuted}%
+    {\color{JAccentD}\bfseries #1-}\;#2}\par\addvspace{2pt}%
+}
+
+% نامِ دیگرِ بیتِ شعر
+\newcommand{\JPoemBayt}[2]{\JBayt{#1}{#2}}
+\newcommand{\JPNote}{\JPoemNote}   % نامِ کوتاهِ پانویسِ شعر
+
+% پانویسِ درون‌جعبه‌ای: علامت و متن
+\newcommand{\FNmark}[1]{%
+  \textsuperscript{{\JUIFont\footnotesize\color{JPlum}\bfseries #1}}%
+}
+\newcommand{\FNfoot}[2]{%
+  \noindent{\JUIFont\footnotesize\color{JMuted}%
+    {\color{JPlum}\bfseries #1-}\;#2}\par\addvspace{1.5pt}%
+}
+
+% زیرعنوانِ سطحِ سه (مثلاً در دلِ بخشِ قواعد)
+\newcommand{\Jsubsec}[1]{%
+  \par\addvspace{11pt}%
+  \noindent{\JUIFont\bfseries\color{JTeal}\small ◂\; \RL{#1}}%
+  \par\nopagebreak\addvspace{4pt}%
+}
+
+% واژهٔ قرمزِ تمرین‌ها (واژه‌های رنگیِ کتاب)
+\newcommand{\jr}[1]{{\color{JRed}#1}}
+\newcommand{\JWRedWord}[1]{%
+  \par\nopagebreak\vspace{1.5pt}%
+  {\JUIFont\footnotesize\bfseries\color{JRed}كَلِمَاتِ الْحَمْرَاءِ:}\;
+  {\Ar\footnotesize\color{JRed}#1}\par
+}
+
+% چُوکاتِ گزینه‌ها در تمرین‌های چهارگزینه‌ایِ کتاب
+\newcommand{\JTick}{%
+  \tikz[baseline=-0.55ex]{\draw[JPlum, line width=0.6pt] (0,0) rectangle (0.68em,0.68em);}%
+}
+
+% کارتِ حرفِ مشبهه: حرف | معنا | آیه | مرجع | ترجمه | یادداشت
+\newcommand{\JHadithCard}[6]{%
+  \begin{tcolorbox}[enhanced, breakable, colback=JTealL, colframe=JTeal,
+      boxrule=0pt, borderline east={2.2pt}{0pt}{JTeal}, arc=3.5pt,
+      left=9pt, right=9pt, top=7pt, bottom=7pt,
+      before skip=9pt, after skip=9pt]
+    \noindent
+    \begin{tabular}{@{}p{0.235\linewidth}@{\hspace{0.9em}}p{0.685\linewidth}@{}}
+      {\ArB\fontsize{17}{20}\selectfont\color{JTeal!80!black}#1} &
+      {\small\color{JInk}#2}\\[1pt]
+       & {\Ar\color{JPrimary!85!black}#3}\\[0.5pt]
+       & {\JUIFont\footnotesize\color{JMuted}#4}\\[1.5pt]
+       & {\footnotesize\color{JGreen!45!black}#5}\\
+    \end{tabular}
+    \ifblank{#6}{}{\par\vspace{2pt}{\JUIFont\footnotesize\color{JMuted}%
+      {\color{JTeal}\bfseries ■}\; #6\par}}
+  \end{tcolorbox}%
+}
+
+% جدولِ واژه‌نامهٔ درس (دو ستونه، شکستنی در مرزِ صفحه)
+% \begin{JMTable} \JW{واژه}{معنی}{روابط} ... \end{JMTable}
+\newenvironment{JMTable}[1][اَلْمُعْجَمُ \,\textbar\, واژه‌نامهٔ درس]{%
+  \par\addvspace{5pt}%
+  \begin{tcolorbox}[enhanced, colback=JTeal, boxrule=0pt, arc=4pt,
+    left=11pt, right=11pt, top=5.5pt, bottom=5.5pt, boxsep=0pt]
+    {\JUIFont\bfseries\small\color{white}#1}
+  \end{tcolorbox}\nopagebreak
+  \rowcolors{2}{white}{JTeal!5}%
+  \begin{longtable}{@{}>{\Ar\color{JPrimary!85!black}}p{0.235\linewidth}
+                       >{\color{JInk}}p{0.705\linewidth}@{}}
+    \endfirsthead
+    \endhead
+    \endfoot
+    \endlastfoot
+}{\end{longtable}\par\addvspace{5pt}}
+
+% سطرِ جدولِ واژه‌نامه:  \JW{اَلْجِرْم}{پیکر}{جمع: اَلْأَجْرام}
+\newcommand{\JW}[3]{%
+  #1 & #2\ifblank{#3}{}{\;{\JUIFont\footnotesize\color{JTeal}(#3)}}\\
+}
+
+% جدولِ واژه‌نامهٔ جامعِ کتاب (چهار ستونه)
+% \begin{JGTable} \JGLetter{ب} \SJW{واژه}{معنا}{نکته}{درس} ... \end{JGTable}
+\newenvironment{JGTable}{%
+  \par\addvspace{5pt}%
+  \begin{tcolorbox}[enhanced, colback=JTeal, boxrule=0pt, arc=4pt,
+    left=11pt, right=11pt, top=5.5pt, bottom=5.5pt, boxsep=0pt]
+    {\JUIFont\bfseries\small\color{white}اَلْمُعْجَمُ الْجَامِعُ \,\textbar\,
+      واژه‌نامهٔ جامعِ الفباییِ جزوه}
+  \end{tcolorbox}\nopagebreak
+  \rowcolors{2}{white}{JTeal!5}%
+  \begin{longtable}{@{}>{\Ar\color{JPrimary!85!black}}p{0.165\linewidth}
+                      >{\color{JInk}}p{0.40\linewidth}
+                      >{\color{JMuted}\footnotesize}p{0.335\linewidth}
+                      >{\JUIFont\footnotesize\color{JTeal}}p{0.045\linewidth}@{}}
+    \endfirsthead
+    \endhead
+    \endfoot
+    \endlastfoot
+}{\end{longtable}\par\addvspace{5pt}}
+
+% سرِ حرفِ الفبا در جدولِ جامع
+\newcommand{\JGLetter}[1]{%
+  \multicolumn{4}{@{}l}{\JUIFont\bfseries\small\color{JTeal}◄\; #1}\\}
+% سطرِ جدولِ جامع:  \SJW{واژه}{معنا}{نکته/روابط}{شمارهٔ درس}
+\newcommand{\SJW}[4]{#1 & #2 & #3 & #4\\}
+
+% ============================================================================
+%  صفحه‌های بخش (جلدهای میانی) — واژه‌نامه، درسنامه، تست‌ها و ...
+% ============================================================================
+
+% \Jpart{عنوان}{زیرعنوان}{شرحِ کوتاه}
+\newcommand{\Jpart}[3]{%
+  \clearpage
+  \thispagestyle{JPlain}%
+  \vspace*{0.4em}%
+  \phantomsection
+  \addcontentsline{toc}{Jchap}{#1}%
+  \begin{center}
+    \begin{tikzpicture}[inner sep=0pt]
+      \node (band) at (0,0)
+        {\includegraphics[width=17.4cm,height=13pt]{assets/band-thin.jpg}};
+      \begin{scope}
+        \clip (0,-2.6) circle (1.62);
+        \node at (0,-2.6) {\includegraphics[width=3.5cm]{assets/medallion-trim.jpg}};
+      \end{scope}
+    \end{tikzpicture}
+
+    \vspace{10pt}
+    \begin{tcolorbox}[enhanced, width=0.9\linewidth, colback=JPrimary,
+        colframe=JPrimary, arc=7pt, halign=center, boxrule=0pt,
+        top=12pt, bottom=12pt, drop fuzzy shadow=JPrimary!35]
+      {\JUIFont\bfseries\fontsize{17}{24}\selectfont\color{white} \JRTL{#1}}\\[5pt]
+      {\JUIFont\fontsize{11}{15}\selectfont\color{JAccentL} #2}
+    \end{tcolorbox}
+
+    \vspace{10pt}
+    \begin{minipage}{0.88\linewidth}
+      \centering\color{JMuted}\small \JRTL{#3}
+    \end{minipage}
+  \end{center}
+  \vspace{4pt}
+}
+
+% عنوانِ سادهٔ بخش‌های آغازین (مقدمه، راهنما، ...)
+% \JFrontSec{عنوان}
+\newcommand{\JFrontSec}[1]{%
+  \clearpage
+  \thispagestyle{JPlain}%
+  \phantomsection
+  \addcontentsline{toc}{Jchap}{#1}%
+  \begin{center}
+    \vspace*{-0.6em}
+    {\JUIFont\bfseries\fontsize{16}{22}\selectfont\color{JPrimary}%
+      \JDiamond\;\; \JRTL{#1} \;\;\JDiamond\par}%
+    \vspace{5pt}%
+    \noindent\makebox[\linewidth]{\color{JAccent!55}\rule{0.62\linewidth}{0.8pt}}
+  \end{center}
+  \addvspace{10pt}%
+}
+
+% ============================================================================

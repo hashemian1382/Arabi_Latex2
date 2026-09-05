@@ -1,0 +1,80 @@
+% ============================================================================
+%  preamble.tex — پیشامقدمهٔ جزوهٔ عربی دوازدهم (دکتر مریم هاشمیان)
+%  ترتیبِ بارگذاری مهم است: همهٔ بسته‌ها ← تنظیم‌ها ← xepersian (همیشه آخر)
+% ============================================================================
+\PassOptionsToPackage{table}{xcolor}
+
+% ------------------------------------------------------------- بسته‌ها ------
+\usepackage{fontspec}                 % قلم‌های یونیکد
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc, shadows, shapes.geometric}
+\usepackage[skins,breakable]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{tabularx, longtable, array, multirow}
+\usepackage{etoolbox}
+\usepackage{footmisc}
+\usepackage{hyperref}
+
+% --------------------------------------------------- شناسنامهٔ جزوه ---------
+\newcommand{\JBookTitle}{عربی، زبانِ قرآن — پایهٔ دوازدهم}
+\newcommand{\JBookSubtitle}{جزوهٔ جامعِ آموزشیِ عربی دوازدهم (علوم انسانی)}
+\newcommand{\JAuthor}{به تدریس: دکتر مریم هاشمیان}
+\newcommand{\JBookNote}{مطابق با کتابِ درسیِ عربی، زبانِ قرآن (۲) — رشتهٔ علوم انسانی}
+
+% --------------------------------------------------------------- رنگ‌ها -----
+\input{settings/colors.tex}
+
+% --------------------------------------------------------- قلم‌ها -----------
+% بدنهٔ فارسی: وزیرمتن (نسخهٔ FD با ارقامِ فارسیِ خودکار)
+\newfontfamily\VazirF{Vazirmatn-FD-Regular}[
+  Path=fonts/,
+  Script=Arabic,
+  Language=Default,
+  BoldFont=Vazirmatn-FD-Bold,
+]
+% قلمِ رابط (تیترهای کوچک، سرصفحه، برچسب‌ها)
+\newfontfamily\VazirUIF{Vazirmatn-FD-Medium}[
+  Path=fonts/,
+  Script=Arabic,
+  Language=Default,
+  BoldFont=Vazirmatn-FD-SemiBold,
+]
+% قلمِ عربی: امیری
+\newfontfamily\AmiriF{Amiri-Regular}[
+  Path=fonts/,
+  BoldFont=Amiri-Bold,
+  Script=Arabic,
+]
+
+\newcommand{\JUIFont}{\VazirUIF}                      % کلیدِ قلمِ رابط
+\newcommand{\Ar}{\AmiriF\fontsize{11.6}{16.6}\selectfont}   % متنِ عربی
+\newcommand{\ArB}{\AmiriF\bfseries}                          % عربیِ سیاه
+
+% --------------------------------------- صفحه‌آرایی، جعبه‌ها، ساختار --------
+\providecommand{\JRTL}[1]{#1}
+\input{settings/layout.tex}
+\input{settings/boxes.tex}
+
+% ------------------------------------------------- راست‌به‌چپ (آخرِ همه) ----
+\usepackage{xepersian}
+% سازگاری با برخی نسخه‌های xepersian/bidi در Overleaf و TeX Live
+\makeatletter
+\providecommand{\UseMathForPositioningText}{\m@th}
+\providecommand{\UseStandardTextForPositioning}{}
+\makeatother
+\settextfont{Vazirmatn-FD-Regular}[
+  Path=fonts/,
+  Script=Arabic,
+  Language=Default,
+  BoldFont=Vazirmatn-FD-Bold,
+]
+\setlatintextfont{Latin Modern Roman}
+\renewcommand{\JRTL}[1]{\RL{#1}}
+
+% ============================================================================

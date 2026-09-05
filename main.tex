@@ -1,0 +1,29 @@
+% ============================================================================
+%  main.tex — فایلِ اصلیِ «جزوهٔ جامع عربی دوازدهم (دکتر مریم هاشمیان)»
+%  کامپایل با XeLaTeX (دو بار برای تکمیلِ فهرست و ارجاع‌ها)
+%      xelatex main.tex
+% ============================================================================
+\documentclass[11pt]{report}
+\input{preamble.tex}
+
+\begin{document}
+
+% ------------------------------------------------------ جلد و بخش‌های آغازین
+\input{front/cover.tex}
+\input{front/intro.tex}
+\input{front/toclist.tex}
+
+% -------------------------------------------------------------- درس‌ها ------
+\input{lessons/lesson01.tex}
+\input{lessons/lesson02.tex}
+\input{lessons/lesson03.tex}
+\input{lessons/lesson04.tex}
+\input{lessons/lesson05.tex}
+
+% -------------------------------------------------------- بخش‌های انتهایی ---
+\input{back/vocabulary.tex}
+\input{back/grammar.tex}
+\input{back/tests.tex}
+\input{back/exams.tex}
+
+\end{document}
